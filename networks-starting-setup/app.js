@@ -69,7 +69,9 @@ app.get('/people', async (req, res) => {
 });
 
 mongoose.connect(
-  'mongodb://localhost:27017/swfavorites',
+  // localhost 在 container 內部指的是 container 本身而不是本機
+  // 所以要用 host.docker.internal 讓 container 能夠連到本機安裝的 MongoDB
+  'mongodb://host.docker.internal:27017/swfavorites',
   { useNewUrlParser: true },
   (err) => {
     if (err) {
