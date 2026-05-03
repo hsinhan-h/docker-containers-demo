@@ -71,8 +71,9 @@ app.get('/people', async (req, res) => {
 mongoose.connect(
   // localhost 在 container 內部指的是 container 本身而不是本機
   // 所以要用 host.docker.internal 讓 container 能夠連到本機安裝的 MongoDB
-  'mongodb://host.docker.internal:27017/swfavorites',
-  { useNewUrlParser: true },
+  // 'mongodb://host.docker.internal:27017/swfavorites',
+  'mongodb://mongodb:27017/swfavorites',
+  { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (err) {
       console.log(err);
@@ -81,3 +82,12 @@ mongoose.connect(
     }
   }
 );
+
+
+// 建立一個自訂的 Docker 網路，名稱為 favorites-net
+// 讓多個容器能夠透過這個網路互相通訊。預設情況下，Docker 容器彼此是隔離的；建立自訂網路後，加入同一網路的容器就可以用容器名稱直接互相連線（而不需要知道 IP 位址）
+
+// docker network create favorites-net
+
+// docker run -d --name mongodb --network favorites-net mongo
+// docker run --name favorites --network favorites-net -d --rm -p 3000:3000 favorites-node 
