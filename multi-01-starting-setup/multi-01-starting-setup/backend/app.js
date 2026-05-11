@@ -83,8 +83,13 @@ app.delete('/goals/:id', async (req, res) => {
   }
 });
 
+// 前置動作：啟動 MongoDB container（需先刪除舊 volume 才能套用帳密）
+// docker run --name mongodb --rm -d -v data:/data/db --network goals-net \
+//   -e MONGO_INITDB_ROOT_USERNAME=hh \
+//   -e MONGO_INITDB_ROOT_PASSWORD=secret \
+//   mongo
 mongoose.connect(
-  'mongodb://host.docker.internal:27017/course-goals',
+  'mongodb://hh:secret@mongodb:27017/course-goals?authSource=admin',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
