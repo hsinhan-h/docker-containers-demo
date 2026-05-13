@@ -1,0 +1,18 @@
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: hh     
+    #   MONGO_INITDB_ROOT_PASSWORD: secret
+    #   - MONGO_INITDB_ROOT_USERNAME=hh
+    env_file:
+      - ./env/mongo.env
+#   backend:
+    
+#   frontend:
+
+volumes:
+  data:
+    
