@@ -9,10 +9,25 @@ services:
     #   - MONGO_INITDB_ROOT_USERNAME=hh
     env_file:
       - ./env/mongo.env
-#   backend:
-    
+  backend:
+    build: ./backend
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    # args:
+    #   some-arg: 
+    ports:
+      - '80:80'
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
 #   frontend:
-
+  
 volumes:
   data:
-    
+  logs:
