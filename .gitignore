@@ -7,3 +7,4 @@ __MACOSX/
 node_modules/
 
 laravel-php-dockerized/laravel-01-added-nginx/src/laravel
+*.pem
